@@ -1,33 +1,40 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <el-button @click.native="startHacking">Let's do it</el-button>
+    <nav-menu @selectMenu="onChangeMenu"></nav-menu>
+    <results :resultData="results" v-show="selected == 1"></results>
   </div>
 </template>
 
 <script>
+import { results } from './data/mock';
+import { NavMenu, Results } from './components';
+// import { bus } from './utils/event';
 export default {
   data () {
     return {
-      msg: 'Use Vue 2.0 Today!'
+      results,
+      selected: 1,
     }
   },
-
+  components: {
+    NavMenu,
+    Results,
+  },
   methods: {
-    startHacking () {
-      this.$notify({
-        title: 'It Works',
-        message: 'We have laid the groundwork for you. Now it\'s your time to build something epic!',
-        duration: 6000
-      })
-    }
-  }
+    onChangeMenu (data) {
+      console.log(data, this.selected);
+      this.selected = data;
+      // this.$set('selected', data); // error
+    },
+  },
 }
 </script>
 
 <style>
 body {
   font-family: Helvetica, sans-serif;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 </style>
